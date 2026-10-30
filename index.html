@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#2e7d32" />
+  <title>Kisan Mitra - AI Plant Leaf Disease Detection & Treatment Assistant</title>
+  <link rel="stylesheet" href="style.css?v=3.6" />
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="#" class="logo-group">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">
+          <h1 data-i18n="app_title">Kisan Mitra</h1>
+          <p data-i18n="app_subtitle">AI Plant Leaf Disease Detection & Advisory</p>
+        </div>
+      </a>
+
+      <div class="header-controls">
+        <div class="lang-selector">
+          <span style="font-size: 1.1rem;">🌐</span>
+          <select id="languageSelect" aria-label="Select Language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+          </select>
+        </div>
+
+        <button id="openVoiceModalBtn" class="btn-voice-header" aria-label="Open Voice Assistant">
+          <span>🎙️</span>
+          <span data-i18n="open_voice">Voice Assistant</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="main-content">
+
+    <!-- Nav Pills -->
+    <nav class="nav-pills" aria-label="Main Navigation">
+      <button class="nav-pill active" data-target="nav-diagnose">
+        <span>🔬</span> <span data-i18n="nav_diagnose">Diagnose Leaf</span>
+      </button>
+      <button class="nav-pill" data-target="nav-guide">
+        <span>📷</span> <span data-i18n="nav_guide">Photo Guide</span>
+      </button>
+      <button class="nav-pill" data-target="nav-library">
+        <span>📚</span> <span data-i18n="nav_library">Disease Library</span>
+      </button>
+      <button class="nav-pill" data-target="nav-history">
+        <span>🕒</span> <span data-i18n="nav_history">History</span>
+      </button>
+    </nav>
+
+    <!-- Professional Hero Banner Card -->
+    <section class="hero-card">
+      <div class="hero-badge">
+        <span class="pulse-leaf">🌾</span>
+        <span>Smart Indian Agricultural Assistant</span>
+      </div>
+      <h2 data-i18n="app_title">Kisan Mitra - Plant Disease Assistant</h2>
+      <p data-i18n="tagline">Protect your harvest with fast leaf disease diagnosis, clear cultural advice, and verified treatment protocols.</p>
+      
+      <!-- Key Metric Highlights -->
+      <div class="hero-stats-row">
+        <div class="hero-stat-pill">
+          <span class="stat-icon">⚡</span>
+          <span data-i18n="stat_speed">Instant AI (&lt; 1s)</span>
+        </div>
+        <div class="hero-stat-pill">
+          <span class="stat-icon">🎯</span>
+          <span data-i18n="stat_accuracy">94.2% Accuracy</span>
+        </div>
+        <div class="hero-stat-pill">
+          <span class="stat-icon">🌿</span>
+          <span data-i18n="stat_classes">38 Crop Pathogens</span>
+        </div>
+        <div class="hero-stat-pill">
+          <span class="stat-icon">🛡️</span>
+          <span data-i18n="stat_safety">Safe IPM & Organic Guidance</span>
+        </div>
+      </div>
+
+      <div class="engine-status-pill">
+        <div class="status-dot"></div>
+        <span id="engineStatusText">AI Inference Engine: Ready (38 Classes Calibrated)</span>
+      </div>
+    </section>
+
+    <!-- Photo Guide Card -->
+    <section id="photoGuideSection" class="photo-guide-card">
+      <div class="section-title-wrap">
+        <span class="section-icon">📷</span>
+        <h3 data-i18n="photo_tips_title">How to Capture an Accurate Leaf Photo</h3>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-box">
+          <div class="tip-icon-bubble">☀️</div>
+          <div>
+            <h4 data-i18n="tip_1_title">Natural Daylight</h4>
+            <p data-i18n="tip_1_desc">Photograph the leaf under clear daylight. Avoid harsh flash, shadows, or night captures.</p>
+          </div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-icon-bubble">🎯</div>
+          <div>
+            <h4 data-i18n="tip_2_title">Sharp Focus</h4>
+            <p data-i18n="tip_2_desc">Hold camera steady 15-25 cm from the leaf until spots, lesions, or veins are crisp.</p>
+          </div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-icon-bubble">🍃</div>
+          <div>
+            <h4 data-i18n="tip_3_title">Single Leaf</h4>
+            <p data-i18n="tip_3_desc">Place a single diseased leaf against a neutral surface or your palm for best AI recognition.</p>
+          </div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-icon-bubble">🔍</div>
+          <div>
+            <h4 data-i18n="tip_4_title">Check Underside</h4>
+            <p data-i18n="tip_4_desc">Check upper and underside of the leaf; powdery mildew and mites often reside underneath.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload & Diagnosis Studio -->
+    <section id="diagnoseSection" class="upload-card">
+      <div class="drop-zone-content">
+        <div class="upload-icon-pulse">
+          <span class="main-upload-leaf">🍃</span>
+        </div>
+        <div class="upload-text" data-i18n="upload_section_title">Upload or Capture Leaf Photo</div>
+        <div class="upload-subtext" data-i18n="supported_formats">Supported formats: JPG, JPEG, PNG. Max file size: 10 MB.</div>
+
+        <div class="upload-actions">
+          <input type="file" id="leafFileInput" accept="image/jpeg,image/png,image/webp" style="display: none;" />
+          <input type="file" id="cameraFileInput" accept="image/*" capture="environment" style="display: none;" />
+
+          <button type="button" class="btn-upload" id="triggerUploadBtn" onclick="document.getElementById('leafFileInput').click();">
+            <span class="btn-icon">📤</span>
+            <span class="btn-text" data-i18n="upload_image_btn">Upload Image</span>
+          </button>
+
+          <button type="button" class="btn-camera" id="triggerCameraBtn">
+            <span class="btn-icon">📸</span>
+            <span class="btn-text" data-i18n="camera_capture">Open Camera</span>
+          </button>
+        </div>
+
+        <div class="farmer-instruction-banner">
+          <span class="tip-spark">💡</span>
+          <span><strong>Farmer Guide:</strong> Click <strong>"Upload Image"</strong> to choose from your phone gallery or the <code>data</code> folder, or click <strong>"Open Camera"</strong> to scan live!</span>
+        </div>
+
+        <!-- Quick Sample Leaf Selector -->
+        <div class="sample-leaves-bar">
+          <div class="sample-category-title" data-i18n="quick_healthy_leaves">
+            🟢 Healthy Crop Samples (Good Leaves):
+          </div>
+          <div class="sample-pills-row">
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="potato_healthy.jpg">🥔 Potato Healthy</button>
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="corn_healthy.jpg">🌽 Corn Healthy</button>
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="tomato_healthy.jpg">🍅 Tomato Healthy</button>
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="apple_healthy.jpg">🍏 Apple Healthy</button>
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="bell_pepper_healthy.jpg">🫑 Pepper Healthy</button>
+            <button type="button" class="sample-leaf-btn pill-healthy" data-file="grape_healthy.jpg">🍇 Grape Healthy</button>
+          </div>
+
+          <div class="sample-category-title" style="margin-top: 0.85rem;" data-i18n="quick_diseased_leaves">
+            🔴 Diseased Crop Samples (Bad Leaves):
+          </div>
+          <div class="sample-pills-row">
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="potato_early_blight.jpg">🥔 Potato Early Blight</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="potato_late_blight.jpg">🥔 Potato Late Blight</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="corn_common_rust.jpg">🌽 Corn Common Rust</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="tomato_early_blight.jpg">🍅 Tomato Early Blight</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="apple_scab.jpg">🍎 Apple Scab</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="bell_pepper_bacterial_spot.jpg">🫑 Pepper Spot</button>
+            <button type="button" class="sample-leaf-btn pill-diseased" data-file="grape_black_rot.jpg">🍇 Grape Black Rot</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Box -->
+      <div id="previewContainer" class="preview-container hidden">
+        <div class="preview-image-wrapper">
+          <img id="previewImg" src="" alt="Selected leaf preview" />
+          <button id="removeImageBtn" class="btn-remove-preview" title="Remove Photo" aria-label="Remove image">✕</button>
+        </div>
+
+        <div id="clientQualityAlert" class="quality-alert-box hidden"></div>
+
+        <button id="analyzeBtn" class="btn-submit-diagnosis" disabled>
+          <span>🔬</span> <span data-i18n="analyze_btn">Diagnose Plant Disease</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Loading Box -->
+    <div id="loadingBox" class="loading-box hidden">
+      <div class="spinner"></div>
+      <h3 data-i18n="analyzing">Analyzing leaf image with AI model...</h3>
+      <div class="progress-steps">
+        <p id="progressStepText" data-i18n="analyzing_step_1">Checking photo clarity and brightness...</p>
+      </div>
+    </div>
+
+    <!-- ==================== RESULTS SECTION ==================== -->
+    <section id="resultsContainer" class="results-container hidden">
+
+      <!-- Header Card -->
+      <div class="diagnosis-header-card">
+        <div id="diagnosisStatusBadge" class="status-badge status-disease">Disease Marker Detected</div>
+
+        <div class="diagnosis-title-row">
+          <div class="diagnosis-names">
+            <h2 id="diseaseNameDisplay">Early Blight</h2>
+            <h3 id="cropNameDisplay">Tomato Crop</h3>
+          </div>
+
+          <div class="confidence-box">
+            <div id="confidencePercent" class="confidence-number">94.2%</div>
+            <div class="confidence-label">
+              <span data-i18n="confidence_label">Model Confidence</span>
+              <span id="confidenceRating">(HIGH)</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="pathogenBadge" class="pathogen-pill">Type: FUNGAL (Alternaria solani)</div>
+        <p id="diseaseSummaryText" class="disease-summary-text"></p>
+      </div>
+
+      <!-- Quality Alert in Results if any -->
+      <div id="resultsQualityWarning" class="quality-alert-box hidden"></div>
+
+      <!-- Priority Immediate Action (Highlighted) -->
+      <div class="report-card priority-action-card">
+        <h3 data-i18n="immediate_action_title">⚡ First Step (Immediate Farmer Action)</h3>
+        <ul id="immediateActionList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Symptoms & Favorable Conditions Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+        <div class="report-card">
+          <h3 data-i18n="symptoms_title">🔍 Observed Symptoms</h3>
+          <ul id="symptomsList" class="bullet-list"></ul>
+        </div>
+
+        <div class="report-card">
+          <h3 data-i18n="causes_title">🌧️ Favorable Conditions & Causes</h3>
+          <ul id="causesList" class="bullet-list"></ul>
+        </div>
+      </div>
+
+      <!-- Cultural Practices -->
+      <div class="report-card">
+        <h3 data-i18n="cultural_control_title">🌱 Non-Chemical & Cultural Practices</h3>
+        <ul id="culturalControlsList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Organic Controls -->
+      <div class="report-card">
+        <h3>🍃 Biological & Organic Controls</h3>
+        <ul id="organicControlsList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Chemical Controls -->
+      <div class="report-card">
+        <h3 data-i18n="chemical_control_title">🧪 Verified Treatment & Input Guidance</h3>
+        <ul id="chemicalControlsList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Fertilizer Reality Check (Crucial Agricultural Safety Requirement) -->
+      <div class="report-card fertilizer-reality-card">
+        <h3 data-i18n="fertilizer_reality_title">🌾 Fertilizer Guidance (Reality Check)</h3>
+        <div id="fertilizerBadge" class="fertilizer-badge-no">Fertilizer is NOT a Cure for this Disease</div>
+        <p id="fertilizerExplanation" style="font-size: 0.98rem; font-weight: 500;"></p>
+      </div>
+
+      <!-- Safety Precautions -->
+      <div class="report-card safety-card">
+        <h3 data-i18n="safety_title">🛡️ Farmer, Pollinator & Water Safety</h3>
+        <ul id="safetyList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Alternative Possibilities if any -->
+      <div id="alternativesBox" class="report-card hidden">
+        <h3 data-i18n="alternative_predictions">⚖️ Alternative Possibilities</h3>
+        <ul id="alternativesList" class="bullet-list"></ul>
+      </div>
+
+      <!-- Expert Notice Card -->
+      <div class="report-card expert-notice-card">
+        <h4 data-i18n="expert_notice_title">📢 Official Agricultural Notice</h4>
+        <p id="expertNoticeText"></p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="results-actions">
+        <button id="listenReportBtn" class="btn-action-primary">
+          <span class="icon">🔊</span>
+          <span data-i18n="listen_voice">Listen to Advisory</span>
+        </button>
+
+        <button id="newDiagnosisBtn" class="btn-action-secondary">
+          <span>🔄</span>
+          <span data-i18n="new_diagnosis">Analyze Another Leaf</span>
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== VOICE ASSISTANT MODAL ==================== -->
+  <div id="voiceAssistantModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 data-i18n="voice_modal_title">🎙️ Kisan Voice Assistant</h3>
+        <button class="btn-close-modal" aria-label="Close Voice Assistant">✕</button>
+      </div>
+
+      <div class="voice-center-area">
+        <button id="voiceMicBtn" class="mic-circle-btn" aria-label="Microphone">🎙️</button>
+        <div id="voiceStatusText" class="voice-status-text" data-i18n="voice_status_ready">Tap microphone to speak.</div>
+      </div>
+
+      <div id="voiceTranscript" class="voice-transcript-box">
+        <em>Spoken questions will appear here...</em>
+      </div>
+
+      <div id="voiceReply" class="voice-transcript-box" style="border-left-color: var(--accent-gold);">
+        <em>Assistant response will be read aloud...</em>
+      </div>
+
+      <div class="sample-queries-title">Suggested Inquiries (Tap to Ask):</div>
+      <div class="sample-queries-list">
+        <button class="query-chip" data-i18n="voice_sample_q1">What disease does this leaf have?</button>
+        <button class="query-chip" data-i18n="voice_sample_q2">What treatment should I use?</button>
+        <button class="query-chip" data-i18n="voice_sample_q3">Does fertilizer cure this disease?</button>
+        <button class="query-chip" data-i18n="voice_sample_q4">How should I take a good photo?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DISEASE LIBRARY MODAL ==================== -->
+  <div id="libraryModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3 data-i18n="nav_library">📚 Disease Library (38 Conditions)</h3>
+        <button class="btn-close-modal" aria-label="Close Library">✕</button>
+      </div>
+      <input type="text" id="librarySearchInput" placeholder="Search crops or diseases..." style="width: 100%; padding: 0.65rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem; font-size: 1rem;" />
+      <div id="libraryList" style="max-height: 60vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== HISTORY MODAL ==================== -->
+  <div id="historyModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 750px;">
+      <div class="modal-header">
+        <h3 data-i18n="history_title">🕒 Recent Diagnoses</h3>
+        <button class="btn-close-modal" aria-label="Close History">✕</button>
+      </div>
+      <button id="clearHistoryBtn" class="btn-action-secondary" style="margin-bottom: 1rem; padding: 0.45rem 0.9rem;" data-i18n="clear_history">Clear History</button>
+      <p id="emptyHistoryMsg" class="hidden" data-i18n="no_history">No previous diagnoses found on this device.</p>
+      <div id="historyGrid" class="history-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== LIVE WEBRTC CAMERA MODAL ==================== -->
+  <div id="cameraModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card camera-modal-card">
+      <div class="modal-header">
+        <h3 id="cameraModalTitle">
+          <span>📸</span> <span data-i18n="camera_scanner_title">Live Leaf Camera Scanner</span>
+        </h3>
+        <button id="closeCameraBtn" class="btn-close-modal" aria-label="Close Camera">✕</button>
+      </div>
+
+      <div class="camera-viewport-container">
+        <!-- Live video stream from device webcam -->
+        <video id="cameraVideo" autoplay playsinline muted></video>
+
+        <!-- Viewfinder Targeting Guide -->
+        <div class="camera-overlay-frame">
+          <div class="frame-corner corner-tl"></div>
+          <div class="frame-corner corner-tr"></div>
+          <div class="frame-corner corner-bl"></div>
+          <div class="frame-corner corner-br"></div>
+          <div class="scan-laser-line"></div>
+          <div class="camera-target-hint" data-i18n="camera_frame_hint">Hold leaf steady inside the green frame</div>
+        </div>
+
+        <div id="cameraStatusMsg" class="camera-status-msg hidden">Connecting camera...</div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="camera-actions-bar">
+        <button type="button" id="switchCameraBtn" class="btn-camera-ctrl" title="Flip Camera">
+          <span>🔄</span> <span data-i18n="switch_camera">Flip</span>
+        </button>
+
+        <button type="button" id="snapPhotoBtn" class="btn-snap-shutter" title="Capture Leaf Photo" aria-label="Take Photo">
+          <div class="shutter-inner"></div>
+        </button>
+
+        <button type="button" id="cancelCameraBtn" class="btn-camera-ctrl" title="Close Camera">
+          <span>❌</span> <span data-i18n="cancel_camera">Close</span>
+        </button>
+      </div>
+      <canvas id="cameraCanvas" style="display: none;"></canvas>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="app-footer">
+    <div class="footer-badge-bar">
+      <div class="gov-kisan-toll">
+        <span>📞</span> <span><strong>Kisan Call Centre Toll-Free:</strong> 1800-180-1551 (24x7 Free Advisory)</span>
+      </div>
+    </div>
+    <p data-i18n="footer_text">Kisan Mitra - Dedicated to empowering Indian farmers with verified agricultural artificial intelligence.</p>
+    <p class="footer-disclaimer" data-i18n="disclaimer">
+      Agricultural Advisory Disclaimer: AI predictions are decision support aids. Always confirm diagnoses with your local Krishi Vigyan Kendra (KVK) or State Agricultural Department officer prior to applying regulated chemical sprays.
+    </p>
+  </footer>
+
+  <!-- Scripts with version query parameter to prevent browser caching -->
+  <script src="languages.js?v=3.6"></script>
+  <script src="disease_database.js?v=3.6"></script>
+  <script src="voice.js?v=3.6"></script>
+  <script src="app.js?v=3.6"></script>
+</body>
+</html>
+

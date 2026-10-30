@@ -1,0 +1,21 @@
+# Core Web & API Framework
+Flask>=3.0.0
+flask-cors>=4.0.0
+
+# Scientific Computing & Computer Vision
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# AI Model Inference Engines
+onnx>=1.15.0
+onnxruntime>=1.16.0
+
+# Testing & Utilities
+pytest>=7.4.0
+requests>=2.31.0
+
+# Optional: Frameworks for fine-tuning custom models
+# tensorflow>=2.15.0
+# torch>=2.1.0
+# torchvision>=0.16.0
+
